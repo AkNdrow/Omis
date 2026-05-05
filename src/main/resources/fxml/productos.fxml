@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.omis.controller.ProductoController"
+      spacing="16">
+    <padding><Insets top="30" left="30" right="30" bottom="30"/></padding>
+
+    <!-- Título -->
+    <Label text="Alta de Productos" styleClass="label-title"/>
+    <Label text="Registre productos del giro mixto (escolar y alimentos)." styleClass="label-subtitle"/>
+
+    <Separator/>
+
+    <!-- Formulario principal -->
+    <VBox styleClass="card" spacing="12">
+        <Label text="Datos del Producto" styleClass="label-section"/>
+
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <VBox spacing="6" HBox.hgrow="ALWAYS">
+                <Label text="Nombre del producto" styleClass="login-label"/>
+                <TextField fx:id="txtNombre" promptText="Ej: Cartulina Fluorescente"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Categoría" styleClass="login-label"/>
+                <ComboBox fx:id="cmbCategoria" promptText="Seleccione" prefWidth="200"/>
+            </VBox>
+            <VBox spacing="6">
+                <Label text="Ubicación física" styleClass="login-label"/>
+                <TextField fx:id="txtUbicacion" promptText="Ej: Estante A3" prefWidth="160"/>
+            </VBox>
+        </HBox>
+
+        <!-- Checkbox para subtipo -->
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <CheckBox fx:id="chkEsLamina" text="Es Lámina Didáctica" onAction="#handleTipoChanged"/>
+            <CheckBox fx:id="chkEsPerecedereo" text="Es Perecedero" onAction="#handleTipoChanged"/>
+        </HBox>
+
+        <!-- Panel dinámico: Lámina -->
+        <VBox fx:id="panelLamina" spacing="8" visible="false" managed="false"
+              style="-fx-border-color: #BBDEFB; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 12;">
+            <Label text="Datos de Lámina" styleClass="label-section"/>
+            <HBox spacing="16" alignment="CENTER_LEFT">
+                <VBox spacing="4">
+                    <Label text="Marca" styleClass="login-label"/>
+                    <ComboBox fx:id="cmbMarca" promptText="Seleccione" prefWidth="180"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Número de Serie" styleClass="login-label"/>
+                    <TextField fx:id="txtNumeroSerie" promptText="Ej: LAM-001"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Tema" styleClass="login-label"/>
+                    <TextField fx:id="txtTema" promptText="Ej: Sistema Solar"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Materia" styleClass="login-label"/>
+                    <TextField fx:id="txtMateria" promptText="Ej: Ciencias"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Panel dinámico: Perecedero -->
+        <VBox fx:id="panelPerecedereo" spacing="8" visible="false" managed="false"
+              style="-fx-border-color: #FFCC80; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 12;">
+            <Label text="Datos de Perecedero" styleClass="label-section"/>
+            <HBox spacing="16" alignment="CENTER_LEFT">
+                <VBox spacing="4">
+                    <Label text="Refrigeración" styleClass="login-label"/>
+                    <TextField fx:id="txtRefrigeracion" promptText="Ej: Sí / No / Ambiente" prefWidth="200"/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Fecha de Caducidad" styleClass="login-label"/>
+                    <DatePicker fx:id="dpCaducidad" promptText="Seleccione fecha" prefWidth="200"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Botones -->
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button fx:id="btnGuardar" text="Registrar Producto" styleClass="button-success" onAction="#handleGuardar"/>
+            <Button fx:id="btnCancelar" text="Cancelar" styleClass="button-secondary" onAction="#handleCancelar" visible="false"/>
+        </HBox>
+    </VBox>
+
+    <!-- Búsqueda y tabla de productos -->
+    <HBox spacing="12" alignment="CENTER_LEFT">
+        <Label text="Buscar:" styleClass="login-label"/>
+        <TextField fx:id="txtBuscar" promptText="Buscar por nombre..." prefWidth="300" onKeyReleased="#handleBuscar"/>
+    </HBox>
+
+    <TableView fx:id="tablaProductos" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn text="ID" prefWidth="50">
+                <cellValueFactory><PropertyValueFactory property="idProducto"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Nombre" prefWidth="220">
+                <cellValueFactory><PropertyValueFactory property="nombre"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Categoría" prefWidth="120">
+                <cellValueFactory><PropertyValueFactory property="nombreCategoria"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Stock" prefWidth="70">
+                <cellValueFactory><PropertyValueFactory property="stockActual"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Costo" prefWidth="90">
+                <cellValueFactory><PropertyValueFactory property="costoAdquisicion"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Precio Venta" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="precioVenta"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Ubicación" prefWidth="110">
+                <cellValueFactory><PropertyValueFactory property="ubicacionFisica"/></cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Editar" onAction="#handleEditar"/>
+        <Button text="Eliminar" styleClass="button-danger" onAction="#handleEliminar"/>
+    </HBox>
+</VBox>

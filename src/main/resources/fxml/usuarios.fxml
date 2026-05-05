@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.omis.controller.UsuarioController"
+      spacing="16">
+    <padding><Insets top="30" left="30" right="30" bottom="30"/></padding>
+
+    <Label text="Gestión de Usuarios" styleClass="label-title"/>
+    <Label text="Administre los empleados y jefes que tienen acceso al sistema." styleClass="label-subtitle"/>
+
+    <Separator/>
+
+    <HBox spacing="20">
+        <!-- Panel de Formulario -->
+        <VBox spacing="12" styleClass="card" prefWidth="300">
+            <Label text="Datos del Usuario" styleClass="label-section"/>
+
+            <VBox spacing="4">
+                <Label text="Nombre Completo:" styleClass="login-label"/>
+                <TextField fx:id="txtNombre" promptText="Nombre del empleado"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="Usuario (Login):" styleClass="login-label"/>
+                <TextField fx:id="txtUsuarioLogin" promptText="Usuario corto"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="Contraseña:" styleClass="login-label"/>
+                <PasswordField fx:id="txtPassword" promptText="Obligatoria para nuevos"/>
+                <Label text="* Deje en blanco si no desea cambiarla al editar." style="-fx-font-size: 10px; -fx-text-fill: #888;"/>
+            </VBox>
+
+            <VBox spacing="4">
+                <Label text="Rol:" styleClass="login-label"/>
+                <ComboBox fx:id="cmbRol" promptText="Seleccione un rol" maxWidth="Infinity"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <HBox spacing="10">
+                <Button text="Limpiar" styleClass="button-secondary" onAction="#handleLimpiar" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                <Button fx:id="btnGuardar" text="Guardar" styleClass="button-primary" onAction="#handleGuardar" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            </HBox>
+        </VBox>
+
+        <!-- Panel de Tabla -->
+        <VBox spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Usuarios Registrados" styleClass="label-section"/>
+
+            <TableView fx:id="tablaUsuarios" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn text="ID" prefWidth="50">
+                        <cellValueFactory><PropertyValueFactory property="idUsuario"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Nombre Completo" prefWidth="200">
+                        <cellValueFactory><PropertyValueFactory property="nombreCompleto"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Usuario (Login)" prefWidth="150">
+                        <cellValueFactory><PropertyValueFactory property="usuarioLogin"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Rol" prefWidth="100">
+                        <cellValueFactory><PropertyValueFactory property="rol"/></cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <Button text="Editar Seleccionado" styleClass="button-secondary" onAction="#handleEditarSeleccionado"/>
+                <Button text="Eliminar Seleccionado" styleClass="button-danger" onAction="#handleEliminarSeleccionado"/>
+            </HBox>
+        </VBox>
+    </HBox>
+
+</VBox>

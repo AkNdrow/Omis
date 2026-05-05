@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.omis.controller.CatalogosController"
+      spacing="20">
+    <padding><Insets top="30" left="30" right="30" bottom="30"/></padding>
+
+    <!-- Título -->
+    <Label text="Gestión de Catálogos" styleClass="label-title"/>
+    <Label text="Administre las categorías, marcas y proveedores del sistema." styleClass="label-subtitle"/>
+
+    <!-- TabPane con 3 pestañas -->
+    <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+
+        <!-- ========== PESTAÑA: CATEGORÍAS ========== -->
+        <Tab text="  Categorías  ">
+            <VBox spacing="16">
+                <padding><Insets top="20" left="10" right="10" bottom="10"/></padding>
+
+                <!-- Formulario -->
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="Nombre:" styleClass="login-label"/>
+                    <TextField fx:id="txtCategoriaNombre" promptText="Nombre de la categoría" prefWidth="300"/>
+                    <Button fx:id="btnCategoriaGuardar" text="Agregar" styleClass="button-success" onAction="#handleCategoriaGuardar"/>
+                    <Button fx:id="btnCategoriaCancelar" text="Cancelar" styleClass="button-secondary" onAction="#handleCategoriaCancelar" visible="false"/>
+                </HBox>
+
+                <!-- Tabla -->
+                <TableView fx:id="tablaCategorias" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colCategoriaId" text="ID" prefWidth="60">
+                            <cellValueFactory><PropertyValueFactory property="idCategoria"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colCategoriaNombre" text="Nombre de Categoría" prefWidth="400">
+                            <cellValueFactory><PropertyValueFactory property="nombreCategoria"/></cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+
+                <!-- Botones de acción -->
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="Editar" onAction="#handleCategoriaEditar"/>
+                    <Button text="Eliminar" styleClass="button-danger" onAction="#handleCategoriaEliminar"/>
+                </HBox>
+            </VBox>
+        </Tab>
+
+        <!-- ========== PESTAÑA: MARCAS ========== -->
+        <Tab text="  Marcas  ">
+            <VBox spacing="16">
+                <padding><Insets top="20" left="10" right="10" bottom="10"/></padding>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="Nombre:" styleClass="login-label"/>
+                    <TextField fx:id="txtMarcaNombre" promptText="Nombre de la marca" prefWidth="300"/>
+                    <Button fx:id="btnMarcaGuardar" text="Agregar" styleClass="button-success" onAction="#handleMarcaGuardar"/>
+                    <Button fx:id="btnMarcaCancelar" text="Cancelar" styleClass="button-secondary" onAction="#handleMarcaCancelar" visible="false"/>
+                </HBox>
+
+                <TableView fx:id="tablaMarcas" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colMarcaId" text="ID" prefWidth="60">
+                            <cellValueFactory><PropertyValueFactory property="idMarca"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colMarcaNombre" text="Nombre de Marca" prefWidth="400">
+                            <cellValueFactory><PropertyValueFactory property="nombreMarca"/></cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="Editar" onAction="#handleMarcaEditar"/>
+                    <Button text="Eliminar" styleClass="button-danger" onAction="#handleMarcaEliminar"/>
+                </HBox>
+            </VBox>
+        </Tab>
+
+        <!-- ========== PESTAÑA: PROVEEDORES ========== -->
+        <Tab text="  Proveedores  ">
+            <VBox spacing="16">
+                <padding><Insets top="20" left="10" right="10" bottom="10"/></padding>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <VBox spacing="8">
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="Empresa:" styleClass="login-label" prefWidth="80"/>
+                            <TextField fx:id="txtProveedorNombre" promptText="Nombre de la empresa" prefWidth="300"/>
+                        </HBox>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="Contacto:" styleClass="login-label" prefWidth="80"/>
+                            <TextField fx:id="txtProveedorContacto" promptText="Teléfono o correo" prefWidth="300"/>
+                        </HBox>
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="Entregas:" styleClass="login-label" prefWidth="80"/>
+                            <TextField fx:id="txtProveedorFrecuencia" promptText="Frecuencia de entrega" prefWidth="300"/>
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="8" alignment="TOP_LEFT">
+                        <Button fx:id="btnProveedorGuardar" text="Agregar" styleClass="button-success" onAction="#handleProveedorGuardar" prefWidth="100"/>
+                        <Button fx:id="btnProveedorCancelar" text="Cancelar" styleClass="button-secondary" onAction="#handleProveedorCancelar" visible="false" prefWidth="100"/>
+                    </VBox>
+                </HBox>
+
+                <TableView fx:id="tablaProveedores" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colProveedorId" text="ID" prefWidth="50">
+                            <cellValueFactory><PropertyValueFactory property="idProveedor"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colProveedorNombre" text="Empresa" prefWidth="220">
+                            <cellValueFactory><PropertyValueFactory property="nombreEmpresa"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colProveedorContacto" text="Contacto" prefWidth="180">
+                            <cellValueFactory><PropertyValueFactory property="contacto"/></cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="colProveedorFrecuencia" text="Frecuencia de Entrega" prefWidth="180">
+                            <cellValueFactory><PropertyValueFactory property="frecuenciaEntrega"/></cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <Button text="Editar" onAction="#handleProveedorEditar"/>
+                    <Button text="Eliminar" styleClass="button-danger" onAction="#handleProveedorEliminar"/>
+                </HBox>
+            </VBox>
+        </Tab>
+
+    </TabPane>
+</VBox>

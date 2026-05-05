@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.omis.controller.EntradaMercanciaController"
+      spacing="16">
+    <padding><Insets top="30" left="30" right="30" bottom="30"/></padding>
+
+    <Label text="Entrada de Mercancía" styleClass="label-title"/>
+    <Label text="Registre la recepción de productos de proveedores." styleClass="label-subtitle"/>
+
+    <Separator/>
+
+    <!-- Datos de la entrada -->
+    <VBox styleClass="card" spacing="12">
+        <Label text="Datos de la Entrada" styleClass="label-section"/>
+
+        <HBox spacing="16" alignment="CENTER_LEFT">
+            <VBox spacing="4">
+                <Label text="Proveedor" styleClass="login-label"/>
+                <ComboBox fx:id="cmbProveedor" promptText="Seleccione proveedor" prefWidth="250"/>
+            </VBox>
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Observaciones" styleClass="login-label"/>
+                <TextField fx:id="txtObservaciones" promptText="Notas de la entrada (opcional)"/>
+            </VBox>
+        </HBox>
+
+        <!-- Agregar producto a la entrada -->
+        <Separator/>
+        <Label text="Agregar Productos al Lote" styleClass="label-section"/>
+
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <VBox spacing="4">
+                <Label text="Producto" styleClass="login-label"/>
+                <ComboBox fx:id="cmbProducto" promptText="Seleccione producto" prefWidth="250"/>
+            </VBox>
+            <VBox spacing="4">
+                <Label text="Cantidad" styleClass="login-label"/>
+                <TextField fx:id="txtCantidad" promptText="0" prefWidth="80"/>
+            </VBox>
+            <VBox spacing="4">
+                <Label text="Costo Unitario $" styleClass="login-label"/>
+                <TextField fx:id="txtCostoUnitario" promptText="0.00" prefWidth="110"/>
+            </VBox>
+            <VBox spacing="4">
+                <Label text="Margen %" styleClass="login-label"/>
+                <TextField fx:id="txtMargen" promptText="30" prefWidth="80"/>
+            </VBox>
+            <VBox spacing="4">
+                <Label text="Precio Calculado" styleClass="login-label"/>
+                <Label fx:id="lblPrecioCalc" text="\$0.00"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;"/>
+            </VBox>
+            <VBox spacing="4" alignment="BOTTOM_LEFT">
+                <Button text="+ Agregar" styleClass="button-success" onAction="#handleAgregarDetalle"/>
+            </VBox>
+        </HBox>
+
+        <!-- Tabla de detalles del lote -->
+        <TableView fx:id="tablaDetalles" prefHeight="180">
+            <columns>
+                <TableColumn text="Producto" prefWidth="220">
+                    <cellValueFactory><PropertyValueFactory property="nombreProducto"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Cantidad" prefWidth="80">
+                    <cellValueFactory><PropertyValueFactory property="cantidadRecibida"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Costo Unit." prefWidth="100">
+                    <cellValueFactory><PropertyValueFactory property="costoUnitario"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Precio Venta" prefWidth="100">
+                    <cellValueFactory><PropertyValueFactory property="precioCalculado"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Subtotal" prefWidth="100">
+                    <cellValueFactory><PropertyValueFactory property="subtotal"/></cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <HBox spacing="12" alignment="CENTER_RIGHT">
+            <Button text="Quitar Seleccionado" styleClass="button-danger" onAction="#handleQuitarDetalle"/>
+            <Separator orientation="VERTICAL"/>
+            <Label text="Total del Lote:" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+            <Label fx:id="lblTotalLote" text="\$0.00"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #1976D2;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnRegistrar" text="Registrar Entrada" styleClass="button-success"
+                    onAction="#handleRegistrarEntrada" prefHeight="38"
+                    style="-fx-font-size: 15px;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Historial de entradas -->
+    <Label text="Historial de Entradas" styleClass="label-section"/>
+    <TableView fx:id="tablaHistorial" prefHeight="150">
+        <columns>
+            <TableColumn text="ID" prefWidth="50">
+                <cellValueFactory><PropertyValueFactory property="idEntrada"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Fecha" prefWidth="150">
+                <cellValueFactory><PropertyValueFactory property="fechaRecepcion"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Proveedor" prefWidth="200">
+                <cellValueFactory><PropertyValueFactory property="nombreProveedor"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Registró" prefWidth="150">
+                <cellValueFactory><PropertyValueFactory property="nombreUsuario"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Observaciones" prefWidth="200">
+                <cellValueFactory><PropertyValueFactory property="observaciones"/></cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+</VBox>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.omis.controller.LaminaController"
+      spacing="16" prefWidth="800" prefHeight="600">
+    <padding><Insets top="20" left="20" right="20" bottom="20"/></padding>
+
+    <Label text="Búsqueda Avanzada de Láminas Didácticas" styleClass="label-title"/>
+    <Label text="Busque por serie, marca, tema o materia." styleClass="label-subtitle"/>
+
+    <Separator/>
+
+    <!-- Filtros -->
+    <HBox spacing="16" alignment="CENTER_LEFT" styleClass="card">
+        <VBox spacing="4">
+            <Label text="Tema o Palabra Clave:" styleClass="login-label"/>
+            <TextField fx:id="txtBusqueda" promptText="Ej: Sistema Solar..." prefWidth="250" onKeyReleased="#handleFiltrar"/>
+        </VBox>
+        <VBox spacing="4">
+            <Label text="Materia:" styleClass="login-label"/>
+            <TextField fx:id="txtMateria" promptText="Ej: Ciencias..." prefWidth="150" onKeyReleased="#handleFiltrar"/>
+        </VBox>
+        <VBox spacing="4">
+            <Label text="Serie:" styleClass="login-label"/>
+            <TextField fx:id="txtSerie" promptText="Ej: LAM-001..." prefWidth="100" onKeyReleased="#handleFiltrar"/>
+        </VBox>
+        <VBox spacing="4" alignment="BOTTOM_LEFT">
+            <Button text="Limpiar Filtros" styleClass="button-secondary" onAction="#handleLimpiarFiltros"/>
+        </VBox>
+    </HBox>
+
+    <!-- Tabla de resultados -->
+    <TableView fx:id="tablaLaminas" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn text="Serie" prefWidth="100">
+                <cellValueFactory><PropertyValueFactory property="numeroSerie"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Nombre del Producto" prefWidth="250">
+                <cellValueFactory><PropertyValueFactory property="nombreProducto"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Marca" prefWidth="120">
+                <cellValueFactory><PropertyValueFactory property="nombreMarca"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Materia" prefWidth="120">
+                <cellValueFactory><PropertyValueFactory property="materia"/></cellValueFactory>
+            </TableColumn>
+            <TableColumn text="Tema" prefWidth="160">
+                <cellValueFactory><PropertyValueFactory property="tema"/></cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+    <!-- Acciones -->
+    <HBox alignment="CENTER_RIGHT" spacing="12">
+        <Label text="Seleccione una lámina para agregar al carrito de ventas." style="-fx-font-style: italic; -fx-text-fill: #777;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Cerrar" styleClass="button-secondary" onAction="#handleCerrar"/>
+        <Button text="Agregar al Carrito" styleClass="button-primary" onAction="#handleAgregar"/>
+    </HBox>
+</VBox>

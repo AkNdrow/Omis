@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.omis.controller.VentaController"
+      spacing="16">
+    <padding><Insets top="20" left="30" right="30" bottom="20"/></padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <VBox>
+            <Label text="Punto de Venta" styleClass="label-title"/>
+            <Label text="Atención al cliente y cobro de productos." styleClass="label-subtitle"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="lblFechaHora" text="00/00/0000 00:00" style="-fx-font-size: 16px; -fx-text-fill: #555;"/>
+    </HBox>
+
+    <Separator/>
+
+    <!-- Zona superior: Búsqueda y agregado -->
+    <HBox spacing="16">
+        <!-- Panel Izquierdo: Buscador -->
+        <VBox spacing="12" styleClass="card" HBox.hgrow="ALWAYS">
+            <Label text="Agregar Producto" styleClass="label-section"/>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Buscar por nombre:" styleClass="login-label"/>
+                    <TextField fx:id="txtBuscar" promptText="Escriba para buscar..." onKeyReleased="#handleBuscar"/>
+                </VBox>
+                <VBox spacing="4">
+                    <Label text="Cantidad:" styleClass="login-label"/>
+                    <TextField fx:id="txtCantidadAdd" text="1" prefWidth="60" alignment="CENTER"/>
+                </VBox>
+                <VBox spacing="4" alignment="BOTTOM_LEFT">
+                    <Button text="Agregar al Carrito" styleClass="button-primary" onAction="#handleAgregarSeleccionado"/>
+                </VBox>
+            </HBox>
+
+            <!-- Tabla de resultados de búsqueda -->
+            <TableView fx:id="tablaResultados" prefHeight="150">
+                <columns>
+                    <TableColumn text="Producto" prefWidth="300">
+                        <cellValueFactory><PropertyValueFactory property="nombre"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Categoría" prefWidth="120">
+                        <cellValueFactory><PropertyValueFactory property="nombreCategoria"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Stock" prefWidth="80">
+                        <cellValueFactory><PropertyValueFactory property="stockActual"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Precio" prefWidth="100">
+                        <cellValueFactory><PropertyValueFactory property="precioVenta"/></cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="🔍 Buscar Láminas Didácticas" styleClass="button-secondary" onAction="#handleAbrirBusquedaLaminas"/>
+            </HBox>
+        </VBox>
+
+        <!-- Panel Derecho: Totales y Cobro -->
+        <VBox spacing="16" styleClass="card" prefWidth="300">
+            <Label text="Resumen de Venta" styleClass="label-section"/>
+            
+            <HBox alignment="CENTER">
+                <Label text="Subtotal:" style="-fx-font-size: 16px;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblSubtotal" text="\$0.00" style="-fx-font-size: 16px;"/>
+            </HBox>
+            <HBox alignment="CENTER">
+                <Label text="TOTAL A COBRAR:" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblTotal" text="\$0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #1976D2;"/>
+            </HBox>
+
+            <Separator/>
+
+            <VBox spacing="8">
+                <Label text="Pago en efectivo:" styleClass="login-label"/>
+                <TextField fx:id="txtPago" promptText="0.00" style="-fx-font-size: 18px;"/>
+            </VBox>
+            
+            <HBox alignment="CENTER">
+                <Label text="Cambio:" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblCambio" text="\$0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;"/>
+            </HBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <VBox spacing="10">
+                <Button fx:id="btnCobrar" text="Registrar Venta" styleClass="button-primary" 
+                        maxWidth="Infinity" prefHeight="40" style="-fx-font-size: 15px;"
+                        onAction="#handleCobrar"/>
+                <Button fx:id="btnCobrarTicket" text="Registrar y Generar Ticket PDF" styleClass="button-success" 
+                        maxWidth="Infinity" prefHeight="40" style="-fx-font-size: 14px;"
+                        onAction="#handleCobrarConTicket"/>
+            </VBox>
+        </VBox>
+    </HBox>
+
+    <!-- Zona Inferior: Carrito de Compras -->
+    <VBox spacing="8" styleClass="card" VBox.vgrow="ALWAYS">
+        <Label text="Carrito de Compras" styleClass="label-section"/>
+        
+        <TableView fx:id="tablaCarrito" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn text="Cant." prefWidth="60">
+                    <cellValueFactory><PropertyValueFactory property="cantidad"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Descripción" prefWidth="400">
+                    <cellValueFactory><PropertyValueFactory property="nombreProducto"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Precio Unitario" prefWidth="120">
+                    <cellValueFactory><PropertyValueFactory property="precioUnitario"/></cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Importe" prefWidth="120">
+                    <cellValueFactory><PropertyValueFactory property="subtotal"/></cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+
+        <HBox alignment="CENTER_RIGHT" spacing="12">
+            <Button text="Limpiar Carrito" styleClass="button-secondary" onAction="#handleLimpiarCarrito"/>
+            <Button text="Quitar Seleccionado" styleClass="button-danger" onAction="#handleQuitarDelCarrito"/>
+        </HBox>
+    </VBox>
+
+</VBox>

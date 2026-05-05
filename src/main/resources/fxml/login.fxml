@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.omis.controller.LoginController"
+            prefWidth="1024" prefHeight="768"
+            styleClass="login-root">
+
+    <center>
+        <VBox alignment="CENTER" spacing="0">
+            <!-- Contenedor del formulario de login -->
+            <VBox fx:id="loginCard" alignment="CENTER" spacing="20"
+                  styleClass="login-card"
+                  maxWidth="420" maxHeight="520">
+
+                <!-- Logo / Título -->
+                <VBox alignment="CENTER" spacing="4">
+                    <Label text="OMIS" styleClass="login-logo"/>
+                    <Label text="Papelería Omis" styleClass="login-subtitle"/>
+                    <Label text="Sistema de Gestión" styleClass="login-desc"/>
+                </VBox>
+
+                <Separator/>
+
+                <!-- Título del formulario -->
+                <Label text="Iniciar Sesión" styleClass="login-form-title"/>
+
+                <!-- Campo: Usuario -->
+                <VBox spacing="6" maxWidth="320">
+                    <Label text="Usuario" styleClass="login-label"/>
+                    <TextField fx:id="txtUsuario"
+                               promptText="Ingrese su usuario"
+                               maxWidth="320"/>
+                </VBox>
+
+                <!-- Campo: Contraseña -->
+                <VBox spacing="6" maxWidth="320">
+                    <Label text="Contraseña" styleClass="login-label"/>
+                    <PasswordField fx:id="txtPassword"
+                                   promptText="Ingrese su contraseña"
+                                   maxWidth="320"
+                                   onAction="#handleLogin"/>
+                </VBox>
+
+                <!-- Mensaje de error -->
+                <Label fx:id="lblError" text=""
+                       styleClass="login-error"
+                       wrapText="true" maxWidth="320"/>
+
+                <!-- Botón de ingreso -->
+                <Button fx:id="btnLogin" text="Ingresar"
+                        onAction="#handleLogin"
+                        styleClass="login-button"
+                        maxWidth="320" prefHeight="42"/>
+
+            </VBox>
+        </VBox>
+    </center>
+
+</BorderPane>

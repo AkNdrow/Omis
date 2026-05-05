@@ -1,0 +1,29 @@
+# Maven
+target/
+*.class
+
+# IDE
+.idea/
+*.iml
+nbproject/private/
+nbactions.xml
+nb-configuration.xml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Base de datos local (no subir datos del cliente)
+omis_data.db
+
+# Dependencias temporales
+node_modules/
+
+# Reportes generados
+Reportes de venta Omis/
+
+# Archivos temporales de extracción
+extract_pdf.js
+proyecto_omis_text.txt
+package.json
+package-lock.json
